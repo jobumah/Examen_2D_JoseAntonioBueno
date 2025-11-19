@@ -31,10 +31,9 @@ public class GameManager : MonoBehaviour
     {
         vida--;
         textoVidaValor.text = vida.ToString();
-        /*jugador.characterController.enabled = false; 
-        jugador.transform.position = puntoInicial.transform.position;
-        jugador.characterController.enabled = true;*/
 
+        jugador.transform.position = puntoInicial.transform.position;
+    
         if (vida <= 0)
         {
             SceneManager.LoadScene(1);

@@ -24,11 +24,12 @@ public class Jugador : MonoBehaviour
 
      [Header("******* Animaciones *******")]
     private Animator animator;
+
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-    
     }
 
     void Update()
@@ -74,14 +75,8 @@ public class Jugador : MonoBehaviour
             audioSource.PlayOneShot(clipMoneda);
             Destroy(collision.gameObject);
         }
-		
-        if (collision.transform.CompareTag("SueloMuerte") )
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            
-        }
 
-        if (collision.transform.CompareTag("Enemigo"))
+        if (collision.transform.CompareTag("Enemigo") || collision.transform.CompareTag("SueloMuerte"))
         {
             FindObjectOfType<GameManager>().QuitarVida();
         }
