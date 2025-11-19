@@ -8,6 +8,7 @@ TagManager:
   - SueloMuerte
   - Moneda
   - Enemigo
+  - Castillo
   layers:
   - Default
   - TransparentFX

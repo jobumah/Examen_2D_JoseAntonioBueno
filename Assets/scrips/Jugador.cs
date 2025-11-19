@@ -17,15 +17,25 @@ public class Jugador : MonoBehaviour
     public LayerMask layerSuelo;
     private float radioEsferaTocaSuelo = 0.1f;
     public Transform compruebaSuelo;
+
+     [Header("******** Sonido ********")]
+    public AudioSource audioSource;
+    public AudioClip clipMoneda;
+
+     [Header("******* Animaciones *******")]
+    private Animator animator;
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+    
     }
 
     void Update()
     {
         
         rb2d.linearVelocity = new Vector2(movimientoX * velocidad, rb2d.linearVelocity.y);
+        animator.SetBool("estaCorriendo", movimientoX != 0);
 
     
     }
@@ -43,6 +53,7 @@ public class Jugador : MonoBehaviour
         if (movimientoX != 0)
         {
             transform.localScale = new Vector3(Mathf.Sign(movimientoX), 1, 1);
+            animator.SetBool("estaCorriendo", true);
         }
     }
 
@@ -60,14 +71,26 @@ public class Jugador : MonoBehaviour
         if (collision.transform.CompareTag("Moneda"))
         {
             FindObjectOfType<GameManager>().SumarPuntos();
+            audioSource.PlayOneShot(clipMoneda);
             Destroy(collision.gameObject);
         }
 		
-        if (collision.transform.CompareTag("SueloMuerte") || collision.transform.CompareTag("Enemigo"))
+        if (collision.transform.CompareTag("SueloMuerte") )
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            
+        }
+
+        if (collision.transform.CompareTag("Enemigo"))
         {
             FindObjectOfType<GameManager>().QuitarVida();
-            
+        }
+
+        if (collision.transform.CompareTag("Castillo"))
+        {
+            SceneManager.LoadScene(2);
         }
     }
     
 }
+

@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -30,6 +31,14 @@ public class GameManager : MonoBehaviour
     {
         vida--;
         textoVidaValor.text = vida.ToString();
+        /*jugador.characterController.enabled = false; 
+        jugador.transform.position = puntoInicial.transform.position;
+        jugador.characterController.enabled = true;*/
+
+        if (vida <= 0)
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 
 }
